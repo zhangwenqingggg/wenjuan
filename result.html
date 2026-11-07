@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh‑CN">
+<head>
+    <meta charset="UTF‑8">
+    <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+    <title>你的岭南非遗人格</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #f7fbf7, #eef8f2);
+            max-width: 640px;
+            margin: 48px auto;
+            padding: 0 20px;
+            color: #2c3333;
+        }
+        h1 {
+            text-align: center;
+            color: #2b6b49;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        .person-card {
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 6px 20px rgba(100,150,120,0.12);
+            padding: 28px;
+        }
+        .res-img {
+            width: 100%;
+            max-width: 380px;
+            height: 260px;
+            object-fit: contain;
+            background-color: #f8fbf9;
+            border-radius: 16px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .result-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2b6b49;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .result-desc {
+            line-height: 1.8;
+            font-size: 16px;
+            color: #44554c;
+        }
+        .tip-footer {
+            font-size: 14px;
+            color: #778880;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid #e8f1ec;
+        }
+        .back-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #2b6b49;
+            color: #ffffff;
+            font-size: 16px;
+            margin-top: 28px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .back-btn:hover {
+            background: #205438;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎋你的岭南非遗人格</h1>
+    <div class="person-card">
+        <img class="res-img" id="resImg" alt="人格配图">
+        <div class="result-name" id="resTitle"></div>
+        <div class="result-desc" id="resContent"></div>
+
+        <div class="tip-footer">
+            💡I=沉浸深挖派｜O=云端吃瓜派；A=主动出击派｜P=随缘体验派<br>感谢参与《高职院校校园岭南传统文化传承意识与实践行为调查》调研
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='index.html'">🔄 返回重新测试</button>
+
+<script>
+const resultMap = {
+    "IA": {
+        title:"✨【经纬守艺人｜I‑A】",
+        desc:"你是岭南非遗实干派，不满足线上浏览，愿意主动去体验、学习竹编、石湾陶艺这类传统技艺。愿意主动参与线下实践，带动身边人感受岭南文化。",
+        img:"https://s41.ax1x.com/2026/11/07/pnfGB24.png"
+    },
+    "IP": {
+        title:"🎏【烟火品鉴官｜I‑P】",
+        desc:"你发自内心喜欢岭南非遗，会被传统手艺打动，但偏向随缘体验。遇到合适活动会去感受，不会刻意寻找，享受和非遗不期而遇的松弛感。",
+        img:"https://s41.ax1x.com/2026/11/07/pnfGAvd.png"
+    },
+    "OA": {
+        title:"📱【云端种草官｜O‑A】",
+        desc:"你习惯通过短视频、图文了解岭南非遗，乐于转发分享，是线上非遗传播者。主动刷非遗内容，但很少亲自上手实操。",
+        img:"https://s41.ax1x.com/2026/11/07/pnfGnVP.png"
+    },
+    "OP": {
+        title:"☁️【随缘旁观者｜O‑P】",
+        desc:"偶尔刷到非遗内容觉得有意思，但不会主动搜索、参与活动，佛系围观，和非遗保持淡淡的距离。",
+        img:"https://s41.ax1x.com/2026/11/07/pnfGuUf.png"
+    }
+};
+
+//读取url参数获取用户的人格类型
+const urlParams = new URLSearchParams(window.location.search);
+const type = urlParams.get('type');
+const res = resultMap[type];
+
+//渲染当前用户的结果
+document.getElementById("resImg").src = res.img;
+document.getElementById("resTitle").innerText = res.title;
+document.getElementById("resContent").innerText = res.desc;
+</script>
+</body>
+</html>

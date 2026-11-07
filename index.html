@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh‑CN">
+<head>
+    <meta charset="UTF‑8">
+    <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+    <title>🎋岭南非遗人格测评</title>
+    <style>
+        * {
+            box-sizing: border‑box;
+            font-family: "Microsoft Yahei", "PingFang SC", sans‑serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear‑gradient(135deg, #f7fbf7, #eef8f2);
+            max‑width:720px;
+            margin:32px auto;
+            padding:0 18px;
+            color:#2c3333;
+        }
+        .wrap‑card {
+            background:#ffffff;
+            border‑radius:20px;
+            box‑shadow:0 6px 20px rgba(100,150,120,0.12);
+            padding:26px;
+            margin‑bottom:22px;
+        }
+        h1 {
+            text‑align:center;
+            color:#2b6b49;
+            font‑size:23px;
+            margin‑bottom:14px;
+        }
+        .tip‑warning{
+            color:#915900;
+            background:#fff7e6;
+            padding:12px 14px;
+            border‑radius:12px;
+            margin‑bottom:18px;
+            line‑height:1.6;
+            font‑size:14px;
+        }
+        .q‑title{
+            font‑size:15px;
+            margin:16px 0 9px;
+            color:#3a5547;
+            font‑weight:500;
+        }
+        .option‑item{
+            display:block;
+            padding:10px 12px;
+            border:1px solid #cce3d6;
+            border‑radius:10px;
+            margin:7px 0;
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .option‑item:hover{
+            border‑color:#2b6b49;
+            background:#f4faf7;
+        }
+        .option‑item input{
+            margin‑right:8px;
+        }
+        .submit‑btn{
+            width:100%;
+            padding:13px;
+            border:none;
+            border‑radius:12px;
+            background:#2b6b49;
+            color:#fff;
+            font‑size:16px;
+            margin‑top:22px;
+            cursor:pointer;
+        }
+        .submit‑btn:hover{
+            background:#205438;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap‑card">
+    <h1>🎋岭南非遗人格测评</h1>
+    <div class="tip‑warning">
+        ✅问卷已经提交完成！请完成下面4道小题目，解锁你的专属岭南非遗人格卡片。<br>⚠️趣味娱乐测试，不作为正式调研统计数据
+    </div>
+    <div id="selectBox"></div>
+    <button class="submit‑btn" onclick="calc()">✨生成我的非遗人格</button>
+</div>
+
+<script>
+const qList = [
+    {
+        title:"Q1 如果学校开设岭南竹编、陶艺手工工坊，你的反应？",
+        opts:["主动报名，很想上手体验","有空就参加，没时间就算","围观看看，不一定参与","不太关注这类活动"],
+        score:[{I:1,O:0,A:1,P:0},{I:1,O:0,A:0,P:1},{I:0,O:1,A:1,P:0},{I:0,O:1,A:0,P:1}]
+    },
+    {
+        title:"Q2 路过南风古灶、镬耳屋这类岭南非遗地点，你会？",
+        opts:["主动进去参观了解","朋友邀约才会去","网上搜图片云浏览","路过就直接走过"],
+        score:[{I:1,O:0,A:1,P:0},{I:1,O:0,A:0,P:1},{I:0,O:1,A:1,P:0},{I:0,O:1,A:0,P:1}]
+    },
+    {
+        title:"Q3刷到岭南非遗短视频时，你一般会？",
+        opts:["收藏，希望线下体验","看完就划走","转发分享给同学","快速直接划过"],
+        score:[{I:1,O:0,A:1,P:0},{I:1,O:0,A:0,P:1},{I:0,O:1,A:1,P:0},{I:0,O:1,A:0,P:1}]
+    },
+    {
+        title:"Q4 面对校园岭南非遗活动，你的模式更接近？",
+        opts:["主动寻找、深度参与","遇上了就体验一把","线上看看内容就够","很少留意相关信息"],
+        score:[{I:1,O:0,A:1,P:0},{I:1,O:0,A:0,P:1},{I:0,O:1,A:1,P:0},{I:0,O:1,A:0,P:1}]
+    }
+];
+
+let html = "";
+qList.forEach((q, idx)=>{
+    html += `<div class="q‑title">${q.title}</div>`;
+    q.opts.forEach((opt,optIdx)=>{
+        html += `
+        <label class="option‑item">
+            <input type="radio" name="q${idx}" value="${optIdx}">
+            ${opt}
+        </label>
+        `
+    })
+})
+document.getElementById("selectBox").innerHTML = html;
+
+function calc(){
+    let score = {I:0,O:0,A:0,P:0};
+    for(let i=0;i<qList.length;i++){
+        const radio = document.querySelector(`input[name="q${i}"]:checked`);
+        if(!radio){
+            alert("请完成全部4道题目！");
+            return;
+        }
+        const sel = Number(radio.value);
+        const s = qList[i].score[sel];
+        score.I += s.I;
+        score.O += s.O;
+        score.A += s.A;
+        score.P += s.P;
+    }
+    const dim1 = score.I > score.O ? "I" : "O";
+    const dim2 = score.A > score.P ? "A" : "P";
+    const tag = dim1 + dim2;
+    // 当前页面直接跳转，不新开窗口
+    window.location.href = "result.html?type="+tag;
+}
+</script>
+</body>
+</html>
